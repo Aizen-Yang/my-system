@@ -2,6 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
+import { siteSettings } from "@/site-settings";
 ---
 
 <Layout title="发布记录 · Aizen Yang"
@@ -27,7 +28,7 @@ import Footer from "@/components/Footer.astro";
         文章标题默认取正文第一行的一级标题；摘要和日期会自动生成。同名文件再次上传会更新文章。
       </p><p>
         如需指定分类、摘要或草稿状态，可以在 Markdown 开头加入元数据。分类可选
-        money、learning、daily、relationships。
+        {siteSettings.categories.map(category => category.id).join("、")}。
       </p><pre><code>---
 title: 我的新记录
 category: daily

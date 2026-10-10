@@ -45,6 +45,10 @@ categories:
     title: 关系
     description: 相处中的记录与思考
 
+  - id: reflections
+    title: 个人最近心得
+    description: 近况、成长与生活思考
+
 posts:
   perPage: 8
   perIndex: 5
