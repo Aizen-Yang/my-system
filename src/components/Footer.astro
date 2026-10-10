@@ -1,0 +1,11 @@
+---
+import { getAssetPath } from "@/utils/withBase";
+import { siteSettings } from "@/site-settings";
+import type { HTMLAttributes } from "astro/types";
+type Props = HTMLAttributes<"footer"> & { noMarginTop?: boolean };
+---
+
+<footer class="custom-footer">
+  <span>© {siteSettings.footer.copyrightStart} {siteSettings.site.author}</span
+  ><a href={getAssetPath("search/")}>{siteSettings.footer.searchLabel}</a>
+</footer>

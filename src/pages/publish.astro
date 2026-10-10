@@ -1,0 +1,65 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+---
+
+<Layout title="发布记录 · Aizen Yang"
+  ><Header /><main id="main-content" class="custom-main">
+    <header class="index-heading">
+      <span class="eyebrow">PUBLISH / 发布</span><h1>发布一篇记录</h1><p>
+        上传 Markdown，提交后自动更新网站。
+      </p>
+    </header><div class="markdown-body">
+      <p>
+        <a
+          class="publish-entry"
+          href="https://github.com/Aizen-Yang/my-system/upload/master/inbox"
+          target="_blank"
+          rel="noopener noreferrer">进入 Markdown 上传页 →</a>
+      </p><ol>
+        <li>登录有仓库写入权限的 GitHub 账号。</li><li>
+          拖入一个或多个 .md 文件。
+        </li><li>选择提交到 master，点击 Commit changes。</li><li>
+          等待自动构建完成，回到首页查看文章。
+        </li>
+      </ol><p>
+        文章标题默认取正文第一行的一级标题；摘要和日期会自动生成。同名文件再次上传会更新文章。
+      </p><p>
+        如需指定分类、摘要或草稿状态，可以在 Markdown 开头加入元数据。分类可选
+        money、learning、daily、relationships。
+      </p><pre><code>---
+title: 我的新记录
+category: daily
+description: 这篇记录的摘要。
+draft: false
+---
+
+# 我的新记录
+
+从这里开始写正文。</code></pre><p
+      >
+        <a
+          href="https://github.com/Aizen-Yang/my-system/actions"
+          target="_blank"
+          rel="noopener noreferrer">查看发布进度</a
+        > · <a
+          href="https://github.com/Aizen-Yang/my-system/edit/master/site.yaml"
+          target="_blank"
+          rel="noopener noreferrer">修改首页配置</a>
+      </p><p>
+        提交到 master 的非草稿文章会发布到公开网站。上传页由 GitHub 验证身份。
+      </p>
+    </div>
+  </main><Footer /></Layout
+>
+<style>
+  .publish-entry {
+    display: inline-block;
+    padding: 12px 18px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+  }
+</style>

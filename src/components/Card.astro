@@ -1,0 +1,8 @@
+---
+import type {CollectionEntry} from 'astro:content';
+import {getPostUrl} from '@/utils/getPostPaths';
+type Props=CollectionEntry<'posts'> & {variant?:'h2'|'h3'};
+const {id,data,filePath}=Astro.props;
+const date=data.pubDatetime.toLocaleDateString('en-CA',{timeZone:'Asia/Shanghai'}).replaceAll('-','.');
+---
+<li class="custom-entry"><time datetime={data.pubDatetime.toISOString()}>{date}</time><div><a class="entry-title" href={getPostUrl(id,filePath,Astro.currentLocale)}>{data.title}<span aria-hidden="true">→</span></a><p>{data.description}</p></div></li>

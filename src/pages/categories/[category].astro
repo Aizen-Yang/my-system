@@ -1,0 +1,51 @@
+---
+import { getAssetPath } from "@/utils/withBase";
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Card from "@/components/Card.astro";
+import { getSortedPosts } from "@/utils/getSortedPosts";
+import { siteSettings } from "@/site-settings";
+export function getStaticPaths() {
+  const categories = siteSettings.categories;
+  return categories.map(category => ({
+    params: { category: category.id },
+    props: { category },
+  }));
+}
+const { category } = Astro.props;
+const posts = getSortedPosts(
+  await getCollection("posts", ({ data }) => data.category === category.id)
+);
+---
+
+<Layout
+  title={category.title + " · " + siteSettings.site.title}
+  description={category.description}
+  ><Header /><main id="main-content" class="custom-main">
+    <header class="index-heading">
+      <a href={getAssetPath("/")} class="eyebrow">← {siteSettings.home.title}</a
+      ><h1>
+        {category.title}
+      </h1><p>{category.description}</p>
+    </header>{
+      posts.length > 0 ? (
+        <ul>
+          {posts.map(post => (
+            <Card {...post} />
+          ))}
+        </ul>
+      ) : (
+        <div class="empty-records">
+          <>
+            <p>{siteSettings.categoryPage.emptyText}</p>
+            <a href={getAssetPath("posts/")}>
+              {siteSettings.categoryPage.moreLabel}
+            </a>
+          </>
+        </div>
+      )
+    }
+  </main><Footer /></Layout
+>

@@ -1,0 +1,14 @@
+---
+import type {GetStaticPaths} from 'astro';
+import {getCollection} from 'astro:content';
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import Card from '@/components/Card.astro';
+import Pagination from '@/components/Pagination.astro';
+import {getSortedPosts} from '@/utils/getSortedPosts';
+import config from '@/config';
+export const getStaticPaths=(async({paginate})=>paginate(getSortedPosts(await getCollection('posts')),{pageSize:config.posts.perPage})) satisfies GetStaticPaths;
+const {page}=Astro.props;
+---
+<Layout title="文章 · Aizen Yang"><Header/><main id="main-content" class="custom-main"><div class="custom-page-heading"><span class="eyebrow">写作与记录</span><h1>文章</h1><p>一些想法，一些实践，按时间慢慢积累。</p></div><ul>{page.data.map(post=><Card {...post}/>)}</ul>{page.lastPage>1&&<Pagination {page}/>}</main><Footer/></Layout>

@@ -1,0 +1,118 @@
+@import "tailwindcss";
+@import "./theme.css";
+@import "./typography.css";
+@import "rehype-callouts/theme/obsidian";
+@import "github-markdown-css/github-markdown-light.css";
+@import "./github-markdown-dark.css";
+@import "./custom-ui.css";
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+@font-face {
+  font-family: "Aizen PingFang";
+  src: url("/fonts/pingfang-light.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Aizen PingFang";
+  src: url("/fonts/pingfang-regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Aizen PingFang";
+  src: url("/fonts/pingfang-bold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 600 900;
+  font-display: swap;
+}
+
+body {
+  font-synthesis: none;
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+
+button, input, textarea, select {
+  font-family: inherit;
+}
+
+.app-prose {
+  font-size: 1.0625rem;
+  line-height: 1.95;
+}
+
+.app-prose h2 {
+  margin-top: 2.5em;
+  letter-spacing: -0.02em;
+}
+
+.app-prose h3 {
+  font-style: normal;
+  margin-top: 1.8em;
+}
+
+#hero > p:last-of-type {
+  font-weight: 300;
+}
+
+.markdown-body,
+html[data-theme="dark"] .markdown-body {
+  font-family: "Aizen PingFang", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --fontStack-sansSerif: "Aizen PingFang", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background-color: transparent;
+}
+
+.markdown-body ul { list-style-type: disc; }
+.markdown-body ol { list-style-type: decimal; }
+.markdown-body .astro-code {
+  display: block;
+  border: 0;
+}
+.markdown-body .astro-code code {
+  display: block;
+  background: transparent;
+  padding: 0;
+}
+.markdown-body .astro-code,
+html[data-theme="dark"] .markdown-body .astro-code {
+  background-color: var(--bgColor-muted);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-accent/75;
+    scrollbar-width: auto;
+    scrollbar-color: var(--color-muted) transparent;
+  }
+  a,
+  button,
+  #main-content {
+    @apply outline-accent outline-offset-1 focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-dashed;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+@utility max-w-app {
+  @apply max-w-3xl;
+}
+
+@utility app-layout {
+  @apply max-w-app mx-auto w-full px-4;
+}
+
+@utility active-nav {
+  @apply underline decoration-1 underline-offset-8;
+}
+
+:target {
+  scroll-margin-block: 1rem;
+}

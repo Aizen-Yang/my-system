@@ -1,0 +1,43 @@
+---
+import { getAssetPath, stripBase } from "@/utils/withBase";
+import config from "@/config";
+import { siteSettings } from "@/site-settings";
+const links = siteSettings.navigation.links;
+const current = stripBase(Astro.url.pathname);
+---
+
+<a href="#main-content" class="custom-skip">跳至正文</a>
+<header class="site-rail">
+  <div>
+    <a class="rail-name" href={getAssetPath("/")}>{config.site.title}</a><p
+      class="rail-subtitle"
+    >
+      {siteSettings.navigation.subtitle}
+    </p><nav aria-label="主导航">
+      {
+        links.map(({ href, label }) => (
+          <a
+            href={href.startsWith("/") ? getAssetPath(href) : href}
+            aria-current={
+              (href === "/" ? current === "/" : current.startsWith(href))
+                ? "page"
+                : undefined
+            }
+          >
+            {label}
+          </a>
+        ))
+      }
+    </nav>
+  </div><div class="rail-bottom">
+    {
+      siteSettings.navigation.secondaryLinks.map(({ href, label }, i) => (
+        <>
+          {i > 0 && <span aria-hidden="true">/</span>}
+          <a href={href.startsWith("/") ? getAssetPath(href) : href}>{label}</a>
+        </>
+      ))
+    }<button id="theme-btn" aria-label="切换深浅色" title="切换深浅色">◐</button
+    >
+  </div>
+</header>

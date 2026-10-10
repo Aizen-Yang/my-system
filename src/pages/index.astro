@@ -1,0 +1,56 @@
+---
+import { getAssetPath } from "@/utils/withBase";
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Card from "@/components/Card.astro";
+import { getSortedPosts } from "@/utils/getSortedPosts";
+import { siteSettings } from "@/site-settings";
+const posts = getSortedPosts(await getCollection("posts")).slice(
+  0,
+  siteSettings.posts.perIndex
+);
+const categories = siteSettings.categories;
+---
+
+<Layout
+  ><Header /><main id="main-content" class="custom-main life-index">
+    <header class="index-heading">
+      <span class="eyebrow">{siteSettings.home.eyebrow}</span><h1>
+        {siteSettings.home.title}
+      </h1><p>{siteSettings.home.description}</p>
+    </header><section
+      class="index-categories"
+      aria-labelledby="categories-title"
+    >
+      <h2 id="categories-title">{siteSettings.home.categoriesTitle}</h2><ul>
+        {
+          categories.map(({ id, title, description }, i) => (
+            <li>
+              <a
+                class="category-row"
+                href={getAssetPath("categories/" + id + "/")}
+              >
+                <>
+                  <span class="category-number">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3>{title}</h3>
+                  <p>{description}</p>
+                  <span class="row-arrow" aria-hidden="true">
+                    →
+                  </span>
+                </>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section><section class="recent-records" aria-labelledby="records-title">
+      <h2 id="records-title">{siteSettings.home.recentTitle}</h2><ul>
+        {posts.map(post => <Card {...post} />)}
+      </ul>
+    </section>
+  </main><Footer /></Layout
+>

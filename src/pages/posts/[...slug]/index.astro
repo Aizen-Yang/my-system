@@ -1,0 +1,67 @@
+---
+import { siteSettings } from "@/site-settings";
+import { getAssetPath } from "@/utils/withBase";
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import PostLayout from "@/layouts/PostLayout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import { getPostSlug } from "@/utils/getPostPaths";
+import { getSortedPosts } from "@/utils/getSortedPosts";
+export async function getStaticPaths() {
+  return getSortedPosts(await getCollection("posts")).map(post => ({
+    params: { slug: getPostSlug(post.id, post.filePath) },
+    props: { post },
+  }));
+}
+type Props = { post: CollectionEntry<"posts"> };
+const { post } = Astro.props;
+const { title, description, pubDatetime, modDatetime, tags, canonicalURL } =
+  post.data;
+const { Content, headings } = await render(post);
+const toc = headings.filter(h => h.depth === 2);
+const date = pubDatetime.toLocaleDateString("zh-CN", {
+  timeZone: "Asia/Shanghai",
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+---
+
+<PostLayout
+  title={title + " · " + siteSettings.site.title}
+  description={description}
+  pubDatetime={pubDatetime}
+  modDatetime={modDatetime}
+  canonicalURL={canonicalURL}
+  ><Header /><main id="main-content" class="custom-article-shell">
+    <div class="article-column">
+      <a class="article-back" href={getAssetPath("posts/")}>← 全部文章</a
+      ><header class="custom-article-heading">
+        <div class="entry-meta">
+          <time datetime={pubDatetime.toISOString()}>{date}</time><span
+            >{siteSettings.site.author}</span>
+        </div><h1>{title}</h1><p>{description}</p>
+      </header><article
+        id="article"
+        class="markdown-body"
+        data-pagefind-body
+        data-pagefind-meta={"title:" + title}
+      >
+        <Content />
+      </article><div class="article-end">
+        <span>{tags.join(" · ")}</span><a href="#main-content">回到顶部 ↑</a>
+      </div>
+    </div>{
+      toc.length > 0 && (
+        <aside class="custom-toc">
+          <nav aria-label="文章目录">
+            <span>本文目录</span>
+            {toc.map(h => (
+              <a href={"#" + h.slug}>{h.text}</a>
+            ))}
+          </nav>
+        </aside>
+      )
+    }
+  </main><Footer /></PostLayout
+>

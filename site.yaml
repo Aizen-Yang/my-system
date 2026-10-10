@@ -1,0 +1,58 @@
+# 网站的内容配置。修改后需要重新构建、发布。
+# 栏目的排列顺序就是首页的显示顺序；id 用于文章分类和网址。
+site:
+  title: Aizen Yang
+  author: Aizen Yang
+  description: 记录思考、学习与创造。
+  url: https://aizen-yang.github.io
+  base: /my-system
+  lang: zh-CN
+  timezone: Asia/Shanghai
+
+home:
+  eyebrow: HOME / 首页
+  title: 生活索引
+  description: 一些记录，按生活的不同部分整理。
+  categoriesTitle: 分类
+  recentTitle: 最近的记录
+
+navigation:
+  subtitle: 个人记录
+  links:
+    - label: 首页
+      href: /
+    - label: 文章
+      href: /posts/
+    - label: 关于
+      href: /about/
+  secondaryLinks:
+    - label: RSS
+      href: /rss.xml
+    - label: 归档
+      href: /archives/
+
+categories:
+  - id: money
+    title: 金钱
+    description: 储蓄、预算与消费
+  - id: learning
+    title: 学习
+    description: 笔记、方法与实践
+  - id: daily
+    title: 日常
+    description: 安排、习惯与体验
+  - id: relationships
+    title: 关系
+    description: 相处中的记录与思考
+
+posts:
+  perPage: 8
+  perIndex: 5
+
+categoryPage:
+  emptyText: 这里还没有记录。
+  moreLabel: 看看其他文章 →
+
+footer:
+  copyrightStart: 2026
+  searchLabel: 搜索记录 →
