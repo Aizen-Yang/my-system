@@ -8,7 +8,7 @@ import {fileURLToPath} from 'node:url';
 export function importMarkdown(root) {
   const {parse,stringify}=createRequire(path.join(root,'package.json'))('yaml');
   const input=path.join(root,'inbox');
-  const output=path.join(root,'src/content/posts/uploaded');
+  const output=path.join(root,'src/content/posts/_uploaded');
   if(!fs.existsSync(input)) return 0;
   fs.mkdirSync(output,{recursive:true});
   const config=parse(fs.readFileSync(path.join(root,'site.yaml'),'utf8'));

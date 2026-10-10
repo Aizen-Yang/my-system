@@ -36,3 +36,4 @@ compose.override.yaml
 
 # Generated from inbox during publishing
 src/content/posts/uploaded/
+src/content/posts/_uploaded/
