@@ -116,3 +116,13 @@ html[data-theme="dark"] .markdown-body .astro-code {
 :target {
   scroll-margin-block: 1rem;
 }
+
+/* Match GitHub syntax colors in both modes, including nested token spans. */
+.markdown-body .astro-code,
+.markdown-body .astro-code span {
+  color: var(--shiki-light);
+}
+html[data-theme="dark"] .markdown-body .astro-code,
+html[data-theme="dark"] .markdown-body .astro-code span {
+  color: var(--shiki-dark);
+}
